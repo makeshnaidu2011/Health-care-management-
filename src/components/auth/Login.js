@@ -30,8 +30,10 @@ export default function Login() {
       err.response.data.msg && setError(err.response.data.msg);
     }
   };
+
   return (
     <div className="page">
+      {window.localStorage.getItem("auth-token") && history.push("/")}
       <h2>Log in</h2>
       {error && (
         <ErrorNotice message={error} clearError={() => setError(undefined)} />

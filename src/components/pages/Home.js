@@ -11,7 +11,7 @@ export default function Home() {
   return (
     <div className="page">
       {userData.user ? (<>
-        {/* <Menu name={userData.user.displayName} /> */}
+
         <h1>Welcome {userData.user.displayName}</h1>
 
 

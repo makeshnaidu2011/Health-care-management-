@@ -7,7 +7,10 @@ import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import UserContext from "./context/UserContext";
 import { About, ContactUs, Services, Products, AdminPanel, UserConfig } from "./components/Routes/routes"
-import Menu from "./components/auth/Menu"
+import Grid from '@material-ui/core/Grid';
+// import Menu from "./components/auth/Menu"
+
+import SideNav from "./components/layout/List"
 
 import "./style.css";
 
@@ -46,30 +49,44 @@ export default function App() {
 
   return (
     <>
+
       <UserContext.Provider value={{ userData, setUserData }}>
         <Header />
         <div className="container">
-          {userData.user && <Menu />}
+          {/* {userData.user && <Menu />} */}
 
-          <Route exact path="/" component={Home} />
-          <Route path="/login" component={Login} />
-          <Route path="/register" component={Register} />
-          {userData.user && <><Route path="/About" component={About} />
-            <Route path="/ContactUs" component={ContactUs} />
-            <Route path="/Products" component={Products} />
-            <Route path="/Services" component={Services} />
-            {userData.user.displayName === "Admin" && <>
-              <Route path="/AdminPanel" component={AdminPanel} />
-              <Route path="/UserConfig" component={UserConfig} />
+
+          <Grid container className={"sideNav"} spacing={3} direction={"row"}>
+            {/* remove the nav once logged out using local storage */}
+            {userData.user && <SideNav />}
+
+            {/* side nav for  all users */}
+
+            <Route exact path="/" component={Home} />
+            <Route path="/login" component={Login} />
+            <Route path="/register" component={Register} />
+
+            {userData.user && <><Route path="/registration" component={About} />
+              <Route path="/billing" component={ContactUs} />
+              <Route path="/sample" component={Products} />
+              <Route path="/organisation" component={Services} />
+              {userData.user.displayName === "Admin" && <>
+                <Route path="/AdminPanel" component={AdminPanel} />
+                <Route path="/UserConfig" component={UserConfig} />
+
+
+
+
+              </>}
+
+
 
             </>}
 
 
 
-          </>}
 
-
-
+          </Grid>
 
         </div>
       </UserContext.Provider>
