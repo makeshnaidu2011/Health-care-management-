@@ -50,10 +50,10 @@ body {
   padding: 1rem;
 }
 
-.container {
+/* .container {
   margin: 0 auto;
   max-width: 900px;
-}
+} */
 
 /* header */
 
@@ -98,10 +98,10 @@ body {
 .form input[type="text"],
 .form input[type="email"],
 .form input[type="password"] {
-  width: 100%;
+  width: 20%;
   padding: 0.3rem;
   border: 1px solid #c2c2c2;
-  border-radius: 8px;
+  border-radius: 5px;
   background-color: #f0f0f0;
   font-size: 1.1rem;
 }
@@ -119,15 +119,6 @@ body {
 }
 
 /* todo list */
-
-.todo-list ul {
-  list-style: disc;
-  cursor: pointer;
-}
-
-.todo-list li:hover {
-  text-decoration: line-through;
-}
 
 /* error notice */
 
@@ -168,27 +159,4 @@ body {
   font-weight: 400px;
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
-}
-.form input[type="text"],
-.form input[type="email"],
-.form input[type="password"] {
-  width: 50%;
-  padding: 0.3rem;
-  border: 1px solid lightblue;
-  border-radius: 5px;
-  background-color: #f0f0f0;
-  font-size: 1.1rem;
-}
-.form input[type="submit"] {
-  padding: 0.3rem 2rem;
-  border: 1px solid #d1ffbb;
-  border-radius: 8px;
-  background-color: #bcaaff;
-  font-size: 1.1rem;
-  color: white;
-}
-
-img {
-  width: 200px;
-  text-align: center;
 }

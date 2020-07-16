@@ -27,7 +27,7 @@ function SideNav() {
             </List>
 
             <Divider />
-            <List component="nav" aria-label="secondary mailbox folders">
+            <List component="nav" >
 
                 <Link to="/registration" > <ListItem button >
                     <ListItemText primary="Registration" />

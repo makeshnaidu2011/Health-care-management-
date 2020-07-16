@@ -6,10 +6,11 @@ import Home from "./components/pages/Home";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import UserContext from "./context/UserContext";
-import { About, ContactUs, Services, Products, AdminPanel, UserConfig } from "./components/Routes/routes"
+import { Services, AdminPanel, UserConfig } from "./components/Routes/routes"
 import Grid from '@material-ui/core/Grid';
-// import Menu from "./components/auth/Menu"
-
+import PatientReg from "./components/labComponents/PatientReg"
+import BillingDetails from "./components/labComponents/billingDetails"
+import SampleAcession from "./components/labComponents/sampleAcession"
 import SideNav from "./components/layout/List"
 
 import "./style.css";
@@ -56,36 +57,26 @@ export default function App() {
           {/* {userData.user && <Menu />} */}
 
 
+          <Route path="/login" component={Login} />
+          <Route path="/register" component={Register} />
           <Grid container className={"sideNav"} spacing={3} direction={"row"}>
             {/* remove the nav once logged out using local storage */}
             {userData.user && <SideNav />}
 
             {/* side nav for  all users */}
-
             <Route exact path="/" component={Home} />
-            <Route path="/login" component={Login} />
-            <Route path="/register" component={Register} />
 
-            {userData.user && <><Route path="/registration" component={About} />
-              <Route path="/billing" component={ContactUs} />
-              <Route path="/sample" component={Products} />
+
+            {userData.user && <><Route path="/registration" component={PatientReg} />
+              <Route path="/billing" component={BillingDetails} />
+              <Route path="/sample" component={SampleAcession} />
               <Route path="/organisation" component={Services} />
               {userData.user.displayName === "Admin" && <>
                 <Route path="/AdminPanel" component={AdminPanel} />
                 <Route path="/UserConfig" component={UserConfig} />
-
-
-
-
               </>}
 
-
-
             </>}
-
-
-
-
           </Grid>
 
         </div>
