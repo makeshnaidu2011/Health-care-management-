@@ -15,7 +15,7 @@ function SideNav() {
     }
 
     return (<>
-        <Grid className={"sideNav"} item xs={12} sm={3} >
+        <Grid className={"sideNav"} item xs={12} sm={2} >
             <List component="nav" aria-label="main mailbox folders">
                 <ListItem button>
                     <ListItemIcon>
@@ -29,27 +29,41 @@ function SideNav() {
             <Divider />
             <List component="nav" >
 
-                <Link to="/registration" > <ListItem button >
-                    <ListItemText primary="Registration" />
-                </ListItem> </Link>
-                <Link to="/billing"><ListItem button>
-                    <ListItemText primary="Billing" />
-                </ListItem></Link>
-                <Link to="/sample"><ListItemLink href="#simple-list">
-                    <ListItemText primary="Sample Acession" />
-                </ListItemLink></Link>
-                <Link to="/organisation" ><ListItem button>
-                    <ListItemText primary="Organization Dashboard" />
-                </ListItem></Link>
-                <Link to="/archives" ><ListItem button>
-                    <ListItemText primary="Archives" />
-                </ListItem></Link>
-                <Link to="/collectionReport" ><ListItem button>
-                    <ListItemText primary="Collection report" />
-                </ListItem></Link>
-                <Link to="/adSearch" ><ListItem button>
-                    <ListItemText primary="Advance Search" />
-                </ListItem></Link>
+                <Link to="/registration" >
+                    <ListItem button >
+                        <ListItemText primary="Registration" />
+                    </ListItem>
+                </Link>
+                <Link to="/billing">
+                    <ListItem button>
+                        <ListItemText primary="Billing" />
+                    </ListItem>
+                </Link>
+                <Link to="/sample">
+                    <ListItemLink href="#simple-list">
+                        <ListItemText primary="Sample Acession" />
+                    </ListItemLink>
+                </Link>
+                <Link to="/organisation" >
+                    <ListItem button>
+                        <ListItemText primary="Organization Dashboard" />
+                    </ListItem>
+                </Link>
+                <Link to="/archives" >
+                    <ListItem button>
+                        <ListItemText primary="Archives" />
+                    </ListItem>
+                </Link>
+                <Link to="/collectionReport" >
+                    <ListItem button>
+                        <ListItemText primary="Collection report" />
+                    </ListItem>
+                </Link>
+                <Link to="/adSearch" >
+                    <ListItem button>
+                        <ListItemText primary="Advance Search" />
+                    </ListItem>
+                </Link>
 
 
 

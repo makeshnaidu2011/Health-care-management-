@@ -63,7 +63,7 @@ export default function App() {
             {/* remove the nav once logged out using local storage */}
             {userData.user && <SideNav />}
 
-            {/* side nav for  all users */}
+
             <Route exact path="/" component={Home} />
 
 
