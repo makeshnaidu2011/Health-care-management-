@@ -63,17 +63,32 @@ export default function PatientReg() {
     };
 
     // checkbox 
-    const [state, setState] = React.useState({
-        checkedA: true,
-        checkedB: true,
-        checkedF: true,
-        checkedG: true,
+    const Health = []
+    const [checkBoxstate, setCheckBoxState] = React.useState({
+        happy: false,
+        Excellent: false,
+        Boring: false,
+        Cheerful: false
     });
+    // converting to array for creating checkbox
+    var array = Object.keys(checkBoxstate).map((key) => [(key), checkBoxstate[key]]);
 
-    const handleCheckBoxChange = (event) => {
-        setState({ ...state, [event.target.name]: event.target.checked });
+    const handleCheckChange = (event) => {
+
+        const { name, checked } = event.target;
+        // changing states
+        setCheckBoxState({ ...checkBoxstate, [name]: checked });
     };
-
+    // logging changed states
+    console.log(checkBoxstate);
+    // pushing all selected values into a new array
+    array.forEach(item => {
+        if (item[1]) {
+            console.log(item[0]);
+            Health.push(item[0])
+        }
+    })
+    console.log(Health);
     return <>
 
 
@@ -197,21 +212,22 @@ export default function PatientReg() {
                         {/* check box group */}
 
                         <FormGroup row>
-                            <FormLabel component="legend">Previous medical condition</FormLabel>
-
-                            <FormControlLabel
-                                control={<Checkbox checked={state.checkedA} onChange={handleCheckBoxChange} name="checkedA" />}
-                                label="test A"
-                            />
-                            <FormControlLabel
-                                control={
-                                    <Checkbox
-                                        checked={state.checkedB}
-                                        onChange={handleCheckBoxChange}
-                                        name="checkedB" />} label="test b" />
+                            {array.map((item, index) => {
+                                return <FormControlLabel
+                                    control={
+                                        <Checkbox
+                                            checked={item[1]}
+                                            onChange={handleCheckChange}
+                                            name={item[0]}
+                                            color="primary"
+                                        />
+                                    } key={index}
+                                    label={item[0]}
+                                />
+                            }
+                            )}
                         </FormGroup>
                     </div>
-
                     <div>
                         <Button variant="contained" type="submit" color="primary">  Save</Button>
                     </div>
