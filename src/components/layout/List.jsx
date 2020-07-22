@@ -15,7 +15,7 @@ function SideNav() {
     }
 
     return (<>
-        <Grid className={"sideNav"} item xs={12} sm={2} >
+        <Grid className={"sideNav"} item xs={12} sm={2}  >
             <List component="nav" aria-label="main mailbox folders">
                 <ListItem button>
                     <ListItemIcon>
