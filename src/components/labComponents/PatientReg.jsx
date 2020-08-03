@@ -1,26 +1,11 @@
 import React from "react"
-import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
-import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-
-// select component
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
+import { Grid, TextField, Button, makeStyles, FormControl, InputLabel, MenuItem, Radio, RadioGroup, FormControlLabel, FormLabel, Checkbox, FormGroup } from '@material-ui/core';
+import { useForm, register, Controller } from 'react-hook-form';
+import Select from "react-select";
 // date picker
 import 'date-fns';
 import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider, KeyboardDatePicker, } from '@material-ui/pickers';
-//Radio Group
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormLabel from '@material-ui/core/FormLabel';
-// check box
-import Checkbox from '@material-ui/core/Checkbox';
-import FormGroup from '@material-ui/core/FormGroup';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -38,121 +23,19 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-
-
-
-
-
-
-
 export default function PatientReg() {
     const classes = useStyles();
-    // dropdown component / select
-    const [age, setAge] = React.useState('');
+    const { handleSubmit, register, control } = useForm();
+    const onSubmit = data => console.log(data);
 
-    const handleChange = (event) => {
-        setAge(event.target.value);
-    };
     // date picker
     const [selectedDate, setSelectedDate] = React.useState(new Date('2000-08-18'));
 
     const handleDateChange = (date) => {
-        var newDate = new Date(date.toDateString());
+        var newDate = date.toLocaleDateString()
+        // console.log(newDate);
         setSelectedDate(newDate);
-        console.log(newDate.toLocaleDateString());
     };
-
-    //symptoms checkbox 
-    const symptoms = []
-    const [symptomsCheckBoxState, setsymptomsCheckBoxState] = React.useState({
-        "Dry Cough": false,
-        "Sneezing": false,
-        "Sore Throat": false,
-        "Feeling Breathless": false,
-        "Pain in Chest": false,
-        "Drowsiness": false,
-        "Weekness": false,
-        "No symptoms": false,
-        "other": false
-    });
-    // converting to array for creating checkbox
-    var array = Object.keys(symptomsCheckBoxState).map((key) => [(key), symptomsCheckBoxState[key]]);
-
-    const handleCheckChange = (event) => {
-
-        const { name, checked } = event.target;
-        // changing states
-        setsymptomsCheckBoxState({ ...symptomsCheckBoxState, [name]: checked });
-    };
-    // logging changed states
-    // console.log(symptomsCheckBoxState);
-    // pushing all selected values into a new array
-    array.forEach(item => {
-        if (item[1]) {
-            console.log(item[0]);
-            symptoms.push(item[0])
-        }
-    })
-    // console.log(symptoms);
-
-    //Travel and exposure checkbox 
-    const exposure = []
-    const [exposureCheckBoxState, setExposureCheckBoxState] = React.useState({
-        "No Travel History": false,
-        "No contact with anyone with travel History ": false,
-        "In contact with covid confirmed": false,
-        "Traveled in covid affected area in last 14 days": false
-    });
-    // converting to array for creating checkbox
-    var array2 = Object.keys(exposureCheckBoxState).map((key) => [(key), exposureCheckBoxState[key]]);
-
-    const handleCheckChange2 = (event) => {
-
-        const { name, checked } = event.target;
-        // changing states
-        setExposureCheckBoxState({ ...exposureCheckBoxState, [name]: checked });
-    };
-    // logging changed states
-    // console.log(exposureCheckBoxState);
-    // pushing all selected values into a new array
-    array2.forEach(item => {
-        if (item[1]) {
-            console.log(item[0]);
-            exposure.push(item[0])
-        }
-    })
-    // console.log(exposure);
-
-    //medical condition History checkbox 
-    const medicalHistory = []
-    const [medHistCheckBoxState, setmedHistCheckBoxState] = React.useState({
-        "Diabetes": false,
-        "Heart Disease ": false,
-        "Kidney Disease ": false,
-        "Lung Disease": false,
-        "Stroke ": false,
-        "Reduced Immunity": false
-
-    });
-    // converting to array for creating checkbox
-    var array3 = Object.keys(medHistCheckBoxState).map((key) => [(key), medHistCheckBoxState[key]]);
-
-    const handleCheckChange3 = (event) => {
-
-        const { name, checked } = event.target;
-        // changing states
-        setmedHistCheckBoxState({ ...medHistCheckBoxState, [name]: checked });
-    };
-    // logging changed states
-    // console.log(medHistCheckBoxState);
-    // pushing all selected values into a new array
-    array3.forEach(item => {
-        if (item[1]) {
-            console.log(item[0]);
-            medicalHistory.push(item[0])
-        }
-    })
-    // console.log(medicalHistory);
 
 
 
@@ -163,37 +46,27 @@ export default function PatientReg() {
 
             <Grid container item xs={12}>
                 <h2 >Patient Register</h2>
-                <form className={classes.root} preventDefault="true" autoComplete="off">
+                <form className={classes.root} onSubmit={handleSubmit(onSubmit)} autoComplete="off">
                     <div>
 
                         {/* Keep atleast 4 items in this div to maintain alignment */}
                         <FormControl className={classes.formControl} >
-                            <InputLabel id="demo-simple-select-label" >Patient type</InputLabel>
-                            <Select
-                                labelId="outlined-secondaryl"
-                                id="demo-simple-select"
-
-                                value={age}
-                                onChange={handleChange}
-                            >
-                                <MenuItem value={10}>Regular</MenuItem>
-                                <MenuItem value={20}>New</MenuItem>
-                                <MenuItem value={30}>Referred</MenuItem>
-                            </Select>
+                            <Controller
+                                name="iceCreamType"
+                                as={Select}
+                                options={[
+                                    { value: "chocolate", label: "Chocolate" },
+                                    { value: "strawberry", label: "Strawberry" },
+                                    { value: "vanilla", label: "Vanilla" }
+                                ]}
+                                control={control}
+                                rules={{ required: true }}
+                            />
                         </FormControl>
-                        <TextField id="outlined-basic" style={{ width: "30%" }} label="Patient name" placeholder="Patient name" variant="outlined" />
-                        <TextField id="outlined-basic" label="mobile no" placeholder="mobile no" variant="outlined" />
-
-
-                        <TextField id="outlined-basic" label="email" placeholder="email" variant="outlined" />
-
-
-                        <TextField
-                            id="standard-helperText"
-                            label="Alternate mobile no."
-
-                            helperText="optional"
-                        />
+                        <TextField id="outlined-basic" style={{ width: "30%" }} name="patientName" label="Patient name" placeholder="Patient name" inputRef={register} variant="outlined" />
+                        <TextField id="outlined-basic" label="mobile no" name="mobile" inputRef={register} placeholder="mobile no" variant="outlined" />
+                        <TextField id="outlined-basic" name="email" label="email" inputRef={register} placeholder="email" variant="outlined" />
+                        <TextField id="standard-helperText" label="Alternate mobile no." inputRef={register} name="alternateMobile" helperText="optional" />
                         <MuiPickersUtilsProvider utils={DateFnsUtils}>
                             <KeyboardDatePicker
                                 disableToolbar
@@ -202,57 +75,57 @@ export default function PatientReg() {
                                 margin="normal"
                                 id="date-picker-inline"
                                 label="Date Of Birth"
-                                value={selectedDate}
                                 onChange={handleDateChange}
-                            />
+                                name="dob" />
                         </MuiPickersUtilsProvider>
-
-
                     </div>
                     <div>
                         <FormControl component="fieldset">
                             <FormLabel component="legend">Gender</FormLabel>
-                            <RadioGroup row name="Gender" defaultValue="top">
+                            <RadioGroup row defaultValue="male">
                                 <FormControlLabel
-                                    value="top"
+                                    value="male"
                                     control={<Radio color="primary" />}
                                     label="Male"
-
+                                    name="Gender"
+                                    inputRef={register}
                                 />
                                 <FormControlLabel
-                                    value="start"
+                                    value="Female"
                                     control={<Radio color="primary" />}
-                                    label="Female"
-
+                                    label="female"
+                                    name="Gender"
+                                    inputRef={register}
                                 />
                                 <FormControlLabel
-                                    value="bottom"
+                                    value="other"
                                     control={<Radio color="primary" />}
                                     label="other"
-
+                                    name="Gender"
+                                    inputRef={register}
                                 />
 
                             </RadioGroup>
                         </FormControl>
-
-
-
                     </div>
                     <div>
                         <TextField
-                            id="standard-full-width"
-                            label="Area"
-                            placeholder="Area"
-                        />
+                            id="standard-full-width" label="Area" placeholder="Area" name="area" inputRef={register} />
                         <TextField
                             id="standard-full-width"
                             label="City"
                             placeholder="City"
+                            name="city"
+                            inputRef={register}
+
                         />
                         <TextField
                             id="standard-full-width"
                             label="Pincode"
                             placeholder="Area"
+                            name="pincode"
+                            inputRef={register}
+
                         />
                     </div>
                     <div>
@@ -260,6 +133,9 @@ export default function PatientReg() {
                             id="standard-full-width"
                             label="Referral"
                             placeholder="Enter Doctor Name"
+                            name="referral"
+                            inputRef={register}
+
                         />
                     </div>
                     <div>
@@ -268,20 +144,8 @@ export default function PatientReg() {
                             <h4>Patient's Symptom:</h4>
                         </div>
                         <FormGroup row>
-                            {array.map((item, index) => {
-                                return <FormControlLabel
-                                    control={
-                                        <Checkbox
-                                            checked={item[1]}
-                                            onChange={handleCheckChange}
-                                            name={item[0]}
-                                            color="primary"
-                                        />
-                                    } key={index}
-                                    label={item[0]}
-                                />
-                            }
-                            )}
+                            <FormControlLabel control={<Checkbox inputRef={register} name="emotion" value="happy" />} label="happy" />
+                            <FormControlLabel control={<Checkbox inputRef={register} name="emotion" value="hungry" />} label="Hungry" />
                         </FormGroup>
                     </div>
                     <div>
@@ -289,43 +153,13 @@ export default function PatientReg() {
                         <div>
                             <h4>Travel and exposure:</h4>
                         </div>
-                        <FormGroup row>
-                            {array2.map((item, index) => {
-                                return <FormControlLabel
-                                    control={
-                                        <Checkbox
-                                            checked={item[1]}
-                                            onChange={handleCheckChange2}
-                                            name={item[0]}
-                                            color="primary"
-                                        />
-                                    } key={index}
-                                    label={item[0]}
-                                />
-                            }
-                            )}
-                        </FormGroup>
+
                     </div>
                     <div>
                         <div>
                             <h4> History of any medical condition:</h4>
                         </div>
-                        <FormGroup row>
-                            {array3.map((item, index) => {
-                                return <FormControlLabel
-                                    control={
-                                        <Checkbox
-                                            checked={item[1]}
-                                            onChange={handleCheckChange3}
-                                            name={item[0]}
-                                            color="primary"
-                                        />
-                                    } key={index}
-                                    label={item[0]}
-                                />
-                            }
-                            )}
-                        </FormGroup>
+
                     </div>
                     <div>
                         <Button variant="contained" type="submit" color="primary">  Save</Button>

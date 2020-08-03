@@ -17,8 +17,10 @@
     "date-fns": "^2.15.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-hook-form": "^6.3.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1",
+    "react-select": "^3.1.0",
     "typescript": "^3.9.7"
   },
   "scripts": {

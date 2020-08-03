@@ -40,9 +40,9 @@ function SideNav() {
                     </ListItem>
                 </Link>
                 <Link to="/sample">
-                    <ListItemLink href="#simple-list">
+                    <ListItem button >
                         <ListItemText primary="Sample Acession" />
-                    </ListItemLink>
+                    </ListItem>
                 </Link>
                 <Link to="/organisation" >
                     <ListItem button>
