@@ -1,5 +1,5 @@
 import React from "react"
-import { Grid, TextField, Button, makeStyles, FormControl, InputLabel, MenuItem, Radio, RadioGroup, FormControlLabel, FormLabel, Checkbox, FormGroup } from '@material-ui/core';
+import { Grid, TextField, Button, makeStyles, FormControl, InputLabel, Radio, RadioGroup, FormControlLabel, FormLabel, Checkbox, FormGroup } from '@material-ui/core';
 import { useForm, register, Controller } from 'react-hook-form';
 import Select from "react-select";
 // date picker
@@ -21,24 +21,20 @@ const useStyles = makeStyles((theme) => ({
     selectEmpty: {
         marginTop: theme.spacing(2),
     },
+    checkBox: {
+        fontSize: "small",
+    },
 }));
 
 export default function PatientReg() {
     const classes = useStyles();
     const { handleSubmit, register, control } = useForm();
-    const onSubmit = data => console.log(data);
+    const onSubmit = data => {
+        let d = data.dob.toLocaleDateString()
+        data.dob = d;
+        console.log(data);
 
-    // date picker
-    const [selectedDate, setSelectedDate] = React.useState(new Date('2000-08-18'));
-
-    const handleDateChange = (date) => {
-        var newDate = date.toLocaleDateString()
-        // console.log(newDate);
-        setSelectedDate(newDate);
-    };
-
-
-
+    }
     return <>
 
 
@@ -50,33 +46,42 @@ export default function PatientReg() {
                     <div>
 
                         {/* Keep atleast 4 items in this div to maintain alignment */}
-                        <FormControl className={classes.formControl} >
-                            <Controller
-                                name="iceCreamType"
-                                as={Select}
-                                options={[
-                                    { value: "chocolate", label: "Chocolate" },
-                                    { value: "strawberry", label: "Strawberry" },
-                                    { value: "vanilla", label: "Vanilla" }
-                                ]}
-                                control={control}
-                                rules={{ required: true }}
-                            />
-                        </FormControl>
-                        <TextField id="outlined-basic" style={{ width: "30%" }} name="patientName" label="Patient name" placeholder="Patient name" inputRef={register} variant="outlined" />
-                        <TextField id="outlined-basic" label="mobile no" name="mobile" inputRef={register} placeholder="mobile no" variant="outlined" />
-                        <TextField id="outlined-basic" name="email" label="email" inputRef={register} placeholder="email" variant="outlined" />
-                        <TextField id="standard-helperText" label="Alternate mobile no." inputRef={register} name="alternateMobile" helperText="optional" />
+
+                        <TextField id="outlined-basic"
+                            style={{ width: "30%" }} name="patientName"
+                            label="Patient name"
+                            placeholder="Patient name"
+                            inputRef={register}
+                            variant="outlined" />
+                        <TextField id="outlined-basic" label="mobile no"
+                            name="mobile"
+                            inputRef={register}
+                            placeholder="mobile no"
+                            variant="outlined" />
+                        <TextField id="outlined-basic" name="email"
+                            type="email"
+                            label="email"
+                            inputRef={register}
+                            placeholder="email"
+                            variant="outlined" />
+                        <TextField id="standard-helperText" label="Alternate mobile no."
+                            inputRef={register}
+                            name="alternateMobile"
+                            helperText="optional" />
+
                         <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                            <KeyboardDatePicker
+                            <Controller
+                                as={KeyboardDatePicker}
                                 disableToolbar
                                 variant="inline"
                                 format="MM/dd/yyyy"
-                                margin="normal"
+                                name="dob"
+                                control={control}
                                 id="date-picker-inline"
-                                label="Date Of Birth"
-                                onChange={handleDateChange}
-                                name="dob" />
+                                required
+
+
+                            />
                         </MuiPickersUtilsProvider>
                     </div>
                     <div>
@@ -104,7 +109,6 @@ export default function PatientReg() {
                                     name="Gender"
                                     inputRef={register}
                                 />
-
                             </RadioGroup>
                         </FormControl>
                     </div>
@@ -143,21 +147,46 @@ export default function PatientReg() {
                         <div>
                             <h4>Patient's Symptom:</h4>
                         </div>
-                        <FormGroup row>
-                            <FormControlLabel control={<Checkbox inputRef={register} name="emotion" value="happy" />} label="happy" />
-                            <FormControlLabel control={<Checkbox inputRef={register} name="emotion" value="hungry" />} label="Hungry" />
+                        <FormGroup row >
+                            <FormControlLabel control={<Checkbox inputRef={register} name="emotion" value="Dry Cough" />} label="Dry Cough" />
+                            <FormControlLabel control={<Checkbox inputRef={register} name="emotion" value="Sore Throat" />} label="Sore Throat" />
+                            <FormControlLabel control={<Checkbox inputRef={register} name="emotion" value="Sneezing" />} label="Sneezing" />
+                            <FormControlLabel control={<Checkbox inputRef={register} name="emotion" value="Breathing problem" />} label="Breathing problem" />
+                            <FormControlLabel control={<Checkbox inputRef={register} name="emotion" value="Pain in chest" />} label="Pain in chest" />
+                            <FormControlLabel control={<Checkbox inputRef={register} name="emotion" value="Drowsiness" />} label="Drowsiness" />
+                            <FormControlLabel control={<Checkbox inputRef={register} name="emotion" value="Weakness" />} label="Weakness" />
+                            <FormControlLabel control={<Checkbox inputRef={register} name="emotion" value="No symptoms" />} label="No symptoms" />
+                            <FormControlLabel control={<Checkbox inputRef={register} name="emotion" value="Other" />} label="Other" />
                         </FormGroup>
                     </div>
                     <div>
                         {/* check box group */}
                         <div>
                             <h4>Travel and exposure:</h4>
+                            <FormGroup row>
+                                <FormControlLabel control={<Checkbox inputRef={register} name="exposure" value="No travel history" />} label="No travel history" />
+                                <FormControlLabel control={<Checkbox inputRef={register} name="exposure" value="No contact with anyone with travel history" />} label="No contact with anyone with travel history" />
+                                <FormControlLabel control={<Checkbox inputRef={register} name="exposure" value="In contact with Covid confirmed" />} label="In contact with Covid confirmed" />
+                                <FormControlLabel control={<Checkbox inputRef={register} name="exposure" value="Travelled in Covid affected area in last 14 days" />} label="Travelled in Covid affected area in last 14 days" />
+
+                            </FormGroup>
+
                         </div>
 
                     </div>
                     <div>
                         <div>
                             <h4> History of any medical condition:</h4>
+                            <FormGroup row>
+                                <FormControlLabel control={<Checkbox inputRef={register} name="medical_condition" value="Diabetes" />} label="Hungry" />
+                                <FormControlLabel control={<Checkbox inputRef={register} name="medical_condition" value="High BP" />} label="happy" />
+                                <FormControlLabel control={<Checkbox inputRef={register} name="medical_condition" value="Heart Disease" />} label="Hungry" />
+                                <FormControlLabel control={<Checkbox inputRef={register} name="medical_condition" value="Kidney Disease" />} label="happy" />
+                                <FormControlLabel control={<Checkbox inputRef={register} name="medical_condition" value="Lung Disease" />} label="happy" />
+                                <FormControlLabel control={<Checkbox inputRef={register} name="medical_condition" value="Stroke" />} label="Hungry" />
+                                <FormControlLabel control={<Checkbox inputRef={register} name="medical_condition" value="Reduced imummnity" />} label="Hungry" />
+                                <FormControlLabel control={<Checkbox inputRef={register} name="medical_condition" value="other" />} label="Hungry" />
+                            </FormGroup>
                         </div>
 
                     </div>
@@ -167,9 +196,6 @@ export default function PatientReg() {
                 </form>
             </Grid>
         </Grid>
-
-
-
 
     </>
 }

@@ -10,9 +10,7 @@ import Grid from '@material-ui/core/Grid';
 
 function SideNav() {
 
-    function ListItemLink(props) {
-        return <ListItem button component="a" {...props} />;
-    }
+
 
     return (<>
         <Grid className={"sideNav"} item xs={12} sm={2}  >
